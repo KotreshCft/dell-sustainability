@@ -1,15 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClient } from "@supabase/supabase-js"
-
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+import { getDustbinData, subscribeToDataChanges } from "../services/dataService"
 
 function RecycleCalc() {
-  const [userVisits, setUserVisits] = useState(0)
   const [totalCorrectDisposals, setTotalCorrectDisposals] = useState(0)
   const [loading, setLoading] = useState(true)
 
@@ -18,48 +12,28 @@ function RecycleCalc() {
   const CHIP_PACKETS_LANDFILLED_PER_DISPOSAL = 250
 
   useEffect(() => {
-    async function fetchData() {
+    async function loadData() {
       try {
         setLoading(true)
-
-        // Fetch all dustbin data for all IDs
-        const { data: dustbinData, error: dustbinError } = await supabase
-          .from("dustbin")
-          .select("data")
-          .in("id", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-        if (dustbinError) {
-          console.error("Error fetching dustbin data:", dustbinError)
-          throw dustbinError
-        }
-
-        if (dustbinData) {
-          // Sum all the data values to get total correct disposals
-          const totalDisposals = dustbinData.reduce((acc, currentRow) => acc + currentRow.data, 0)
-          setTotalCorrectDisposals(totalDisposals)
-          
-          // Set user visits to the total as well, or you can keep the separate fetch for ID 2 if needed
-          // If you want to keep user visits as a separate metric from ID 2 only:
-          const userVisitsData = dustbinData.find(row => row.id === 2)
-          if (userVisitsData) {
-            setUserVisits(userVisitsData.data)
-          } else {
-            // If you want user visits to be the total sum instead:
-            setUserVisits(totalDisposals)
-          }
-        }
+        const dustbinData = await getDustbinData()
+        setTotalCorrectDisposals(dustbinData)
       } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error fetching data:", error.message)
-        } else {
-          console.error("Error fetching data:", error)
-        }
+        console.error("Error loading dustbin data:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchData()
+    loadData()
+
+    // Subscribe to real-time changes
+    const unsubscribe = subscribeToDataChanges(async () => {
+      const dustbinData = await getDustbinData()
+      setTotalCorrectDisposals(dustbinData)
+    })
+
+    // Cleanup subscription on unmount
+    return unsubscribe
   }, [])
 
   // Calculate display values based on total correct disposals

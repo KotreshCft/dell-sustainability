@@ -1,12 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClient } from "@supabase/supabase-js"
-
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+import { getCycleData, subscribeToDataChanges } from "../services/dataService"
 
 function RegenerateCalc() {
   const [totalCycleData, setTotalCycleData] = useState(0)
@@ -16,38 +11,28 @@ function RegenerateCalc() {
   const CARBON_EMISSION_PREVENTED_PER_LAMP = 125 // kg per solar lamp
 
   useEffect(() => {
-    async function fetchData() {
+    async function loadData() {
       try {
         setLoading(true)
-
-        // Fetch cycle data from all IDs and sum them up
-        const { data, error } = await supabase
-          .from("cycle")
-          .select("data")
-          .in("id", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) // Fetch from all IDs
-
-        if (error) {
-          console.error("Error fetching cycle data:", error)
-          throw error
-        }
-
-        if (data) {
-          // Sum all the data values to get total
-          const total = data.reduce((acc, currentRow) => acc + currentRow.data, 0)
-          setTotalCycleData(total)
-        }
+        const cycleData = await getCycleData()
+        setTotalCycleData(cycleData)
       } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error fetching data:", error.message)
-        } else {
-          console.error("Error fetching data:", error)
-        }
+        console.error("Error loading cycle data:", error)
       } finally {
         setLoading(false)
       }
     }
 
-    fetchData()
+    loadData()
+
+    // Subscribe to real-time changes
+    const unsubscribe = subscribeToDataChanges(async () => {
+      const cycleData = await getCycleData()
+      setTotalCycleData(cycleData)
+    })
+
+    // Cleanup subscription on unmount
+    return unsubscribe
   }, [])
 
   // Calculate values based on total cycle data

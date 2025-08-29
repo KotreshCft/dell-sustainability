@@ -1,12 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { createClient } from "@supabase/supabase-js"
-
-// Initialize Supabase client
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-const supabase = createClient(supabaseUrl, supabaseAnonKey)
+import { getUserCount, getDustbinData, getWaterRefills, getCycleData, subscribeToDataChanges } from "../services/dataService"
 
 interface DashboardData {
   // Reduce data
@@ -19,6 +14,7 @@ interface DashboardData {
 
   // Reuse data
   waterRefills: number
+  farmersSupported: number
   waterConserved: number
 
   // Regenerate data
@@ -33,6 +29,7 @@ function DashboardPage() {
     correctDisposals: 0,
     plasticRecycled: 0,
     waterRefills: 0,
+    farmersSupported: 0,
     waterConserved: 0,
     cycleInitiatives: 0,
     solarLamps: 0,
@@ -49,38 +46,19 @@ function DashboardPage() {
       try {
         setLoading(true)
 
-        // Fetch Reduce data (website visits)
-        const { data: websiteData, error: websiteError } = await supabase.from("website").select("data").eq("id", 2)
+        // Fetch all data using optimized service
+        const [userVisits, totalCorrectDisposals, totalWaterRefills, totalCycleInitiatives] = await Promise.all([
+          getUserCount(),
+          getDustbinData(),
+          getWaterRefills(),
+          getCycleData()
+        ])
 
-        // Fetch Recycle data (dustbin)
-        const { data: dustbinData, error: dustbinError } = await supabase
-          .from("dustbin")
-          .select("data")
-          .in("id", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-        // Fetch Reuse data (water)
-        const { data: waterData, error: waterError } = await supabase
-          .from("water")
-          .select("data")
-          .in("id", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-        // Fetch Regenerate data (cycle)
-        const { data: cycleData, error: cycleError } = await supabase
-          .from("cycle")
-          .select("data")
-          .in("id", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
-        // Process the data
-        const userVisits = websiteData && websiteData.length > 0 ? websiteData[0].data : 5
+        // Calculate derived values
         const treesPlanted = userVisits * BASE_TREES_PER_USER
-
-        const totalCorrectDisposals = dustbinData ? dustbinData.reduce((acc, row) => acc + row.data, 0) : 100
         const plasticRecycled = totalCorrectDisposals * PLASTIC_RECYCLED_PER_DISPOSAL
-
-        const totalWaterRefills = waterData ? waterData.reduce((acc, row) => acc + row.data, 0) : 300
+        const farmersSupported = Math.floor(totalWaterRefills / 150) // 1 farmer supported per 150 water refills
         const waterConserved = totalWaterRefills * WATER_CONSERVED_PER_REFILL
-
-        const totalCycleInitiatives = cycleData ? cycleData.reduce((acc, row) => acc + row.data, 0) : 120
         const displayCycleInitiatives = totalCycleInitiatives * 60
 
         setDashboardData({
@@ -89,6 +67,7 @@ function DashboardPage() {
           correctDisposals: totalCorrectDisposals,
           plasticRecycled,
           waterRefills: totalWaterRefills,
+          farmersSupported,
           waterConserved,
           cycleInitiatives: displayCycleInitiatives,
           solarLamps: totalCycleInitiatives,
@@ -101,6 +80,12 @@ function DashboardPage() {
     }
 
     fetchAllData()
+
+    // Subscribe to real-time changes
+    const unsubscribe = subscribeToDataChanges(fetchAllData)
+
+    // Cleanup subscription on unmount
+    return unsubscribe
   }, [])
 
   const formatNumber = (num: number) => {
@@ -171,7 +156,7 @@ function DashboardPage() {
                   <span className="font-bold">{dashboardData.waterRefills} Water refills:</span>
                   <br />
                   <span className="font-normal">
-                    2 Farmers livelihoods empowered and {formatNumber(dashboardData.waterConserved)} liters of water
+                    {dashboardData.farmersSupported} Farmers livelihoods empowered and {formatNumber(dashboardData.waterConserved)} liters of water
                     saved
                   </span>
                 </span>

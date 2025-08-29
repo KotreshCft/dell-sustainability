@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getWaterRefills } from "../services/dataService"
+import { getWaterRefills, subscribeToDataChanges } from "../services/dataService"
 
 function ReuseCalc() {
   const [totalWaterRefills, setTotalWaterRefills] = useState(0)
+  const [loading, setLoading] = useState(true)
 
   // Base values per water refill
   const CARBON_FOOTPRINT_PER_REFILL = 4.4 // kg
@@ -12,11 +13,27 @@ function ReuseCalc() {
 
   useEffect(() => {
     async function loadData() {
-      const waterRefills = await getWaterRefills()
-      setTotalWaterRefills(waterRefills)
+      try {
+        setLoading(true)
+        const waterRefills = await getWaterRefills()
+        setTotalWaterRefills(waterRefills)
+      } catch (error) {
+        console.error("Error loading water refills data:", error)
+      } finally {
+        setLoading(false)
+      }
     }
 
     loadData()
+
+    // Subscribe to real-time changes
+    const unsubscribe = subscribeToDataChanges(async () => {
+      const waterRefills = await getWaterRefills()
+      setTotalWaterRefills(waterRefills)
+    })
+
+    // Cleanup subscription on unmount
+    return unsubscribe
   }, [])
 
   // Calculate display values based on total water refills
@@ -42,7 +59,12 @@ function ReuseCalc() {
       <div className="absolute inset-0"></div>
 
       <div className="flex flex-col items-start justify-start relative z-10 mt-80 ml-80">
-        <div className="grid grid-cols-2 gap-8 w-full max-w-[59rem]">
+        {loading ? (
+          <div className="py-20 px-16 shadow-2xl w-full max-w-6xl" style={{ backgroundColor: "#00468B" }}>
+            <p className="text-4xl text-white font-bold">Loading data...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 gap-8 w-full max-w-[59rem]">
           {/* Row 1: Water Refills and Carbon Footprint Reduced */}
           <div className="py-12 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
             <div className="text-left flex flex-col justify-start h-full">
@@ -70,6 +92,7 @@ function ReuseCalc() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   )
