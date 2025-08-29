@@ -41,15 +41,16 @@ function ReduceCalc() {
   const carbonAbsorption = BASE_CARBON_KGS_PER_USER * userCount
 
   return (
-    <div
-      className="min-h-screen flex items-start justify-start p-0 relative"
-      style={{
-        backgroundImage: "url(/reducebg.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <div className="min-h-screen flex items-start justify-start p-0 relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/reducebg.mp4" type="video/mp4" />
+      </video>
       {/* Dark overlay for better text visibility */}
       <div className="absolute inset-0"></div>
 

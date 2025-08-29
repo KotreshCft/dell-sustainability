@@ -45,15 +45,16 @@ function RegenerateCalc() {
   const displayCarbonEmissionPrevented = carbonEmissionPrevented * 60
 
   return (
-    <div
-      className="min-h-screen flex items-start justify-start p-0 relative"
-      style={{
-        backgroundImage: "url(/regenbg.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <div className="min-h-screen flex items-start justify-start p-0 relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/regenbg.mp4" type="video/mp4" />
+      </video>
       {/* Dark overlay for better text visibility */}
       <div className="absolute inset-0"></div>
 
