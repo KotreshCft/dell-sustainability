@@ -120,7 +120,7 @@ function ReduceCalc() {
             <div className="col-span-2 py-12 px-12 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
               <div className="text-left">
                 <p className="text-6xl font-bold text-white drop-shadow-lg mb-8">{carbonAbsorption} kgs</p>
-                <p className="text-4xl text-white">Carbon absorption per year​ will be planted as our contribution​</p>
+                <p className="text-4xl text-white">carbon absorption per year​ due to the plantation​</p>
           
               </div>
             </div>
