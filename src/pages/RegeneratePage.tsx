@@ -24,12 +24,14 @@ function RegeneratePage() {
       {showInfo && (
         <div className="fixed inset-0 w-full h-full">
           {!imageError ? (
-            <img 
-              src="/regeninfo.png" 
-              alt="Regenerate Information" 
+            <video 
+              src="/regeninfo.mp4" 
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
               onError={() => {
-                console.error('Image not found, showing placeholder');
+                console.error('Video not found, showing placeholder');
                 setImageError(true);
               }}
             />

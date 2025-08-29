@@ -24,12 +24,14 @@ function RecyclePage() {
       {showInfo && (
         <div className="fixed inset-0 w-full h-full bg-black">
           {!imageError ? (
-            <img 
-              src="/recycleinfo.png" 
-              alt="Recycle Information" 
+            <video 
+              src="/recycleinfo.mp4" 
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
               onError={() => {
-                console.error('Image not found, showing placeholder');
+                console.error('Video not found, showing placeholder');
                 setImageError(true);
               }}
             />

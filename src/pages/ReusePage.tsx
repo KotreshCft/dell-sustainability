@@ -25,12 +25,14 @@ function ReusePage() {
       {showInfo && (
         <div className="fixed inset-0 w-full h-full bg-black">
           {!imageError ? (
-            <img 
-              src="/reuseinfo.png" 
-              alt="Reuse Information" 
+            <video 
+              src="/reuseinfo.mp4" 
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
               onError={() => {
-                console.error('Image not found, showing placeholder');
+                console.error('Video not found, showing placeholder');
                 setImageError(true);
               }}
             />

@@ -24,12 +24,14 @@ function ReducePage() {
       {showInfo && (
         <div className="fixed inset-0 w-full h-full">
           {!imageError ? (
-            <img 
-              src="/reduceinfo.png" 
-              alt="Reduce Information" 
+            <video 
+              src="/reduceinfo.mp4" 
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
               onError={() => {
-                console.error('Image not found, showing placeholder');
+                console.error('Video not found, showing placeholder');
                 setImageError(true);
               }}
             />
