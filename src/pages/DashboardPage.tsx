@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react"
 import { getUserCount, getDustbinData, getWaterRefills, getCycleData, subscribeToDataChanges } from "../services/dataService"
 
+import 'animate.css';
+
 interface DashboardData {
   // Reduce data
   userVisits: number
@@ -120,7 +122,7 @@ function DashboardPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-6 relative"
+      className="min-h-screen flex items-center justify-center p-6 relative animate__animated animate__slideInRight"
       style={{
         backgroundImage: "url(/dashboard.png)",
         backgroundSize: "cover",

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { getDustbinData, subscribeToDataChanges } from "../services/dataService"
+import 'animate.css';
 
 function RecycleCalc() {
   const [totalCorrectDisposals, setTotalCorrectDisposals] = useState(0)
@@ -46,7 +47,7 @@ function RecycleCalc() {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative">
+    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__slideInRight">
       <video
         autoPlay
         loop

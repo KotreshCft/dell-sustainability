@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RecycleCalc from './RecycleCalc';
+import 'animate.css';
 
 function RecyclePage() {
   const [showInfo, setShowInfo] = useState(true);
@@ -22,7 +23,7 @@ function RecyclePage() {
   return (
     <>
       {showInfo && (
-        <div className="fixed inset-0 w-full h-full bg-black">
+        <div className="fixed inset-0 w-full h-full bg-black animate__animated animate__slideInRight">
           {!imageError ? (
             <video 
               src="/recycleinfo.mp4" 

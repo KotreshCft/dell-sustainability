@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import RegenerateCalc from './RegenerateCalc';
+import 'animate.css';
 
 function RegeneratePage() {
   const [showInfo, setShowInfo] = useState(true);
@@ -22,7 +23,7 @@ function RegeneratePage() {
   return (
     <>
       {showInfo && (
-        <div className="fixed inset-0 w-full h-full">
+        <div className="fixed inset-0 w-full h-full animate__animated animate__slideInRight">
           {!imageError ? (
             <video 
               src="/regeninfo.mp4" 

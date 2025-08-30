@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReduceCalc from './ReduceCalc';
+import 'animate.css';
+
 
 function ReducePage() {
   const [showInfo, setShowInfo] = useState(true);
@@ -22,7 +24,7 @@ function ReducePage() {
   return (
     <>
       {showInfo && (
-        <div className="fixed inset-0 w-full h-full">
+        <div className="fixed inset-0 w-full h-full animate__animated animate__slideInRight">
           {!imageError ? (
             <video 
               src="/reduceinfo.mp4" 

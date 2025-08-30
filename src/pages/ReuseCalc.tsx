@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { getWaterRefills, subscribeToDataChanges } from "../services/dataService"
+import 'animate.css';
 
 function ReuseCalc() {
   const [totalWaterRefills, setTotalWaterRefills] = useState(0)
@@ -46,7 +47,7 @@ function ReuseCalc() {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative">
+    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__slideInRight">
       <video
         autoPlay
         loop

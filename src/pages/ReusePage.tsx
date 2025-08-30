@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReuseCalc from './ReuseCalc';
-
+import 'animate.css';
 function ReusePage() {
   const [showInfo, setShowInfo] = useState(true);
   const [showCalculation, setShowCalculation] = useState(false);
@@ -23,7 +23,7 @@ function ReusePage() {
   return (
     <>
       {showInfo && (
-        <div className="fixed inset-0 w-full h-full bg-black">
+        <div className="fixed inset-0 w-full h-full bg-black animate__animated animate__slideInRight">
           {!imageError ? (
             <video 
               src="/reuseinfo.mp4" 

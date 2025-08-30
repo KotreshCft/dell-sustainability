@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { getCycleData, subscribeToDataChanges } from "../services/dataService"
+import 'animate.css';
+
 
 function RegenerateCalc() {
   const [totalCycleData, setTotalCycleData] = useState(0)
@@ -45,7 +47,7 @@ function RegenerateCalc() {
   const displayCarbonEmissionPrevented = carbonEmissionPrevented * 60
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative">
+    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__slideInRight">
       <video
         autoPlay
         loop
