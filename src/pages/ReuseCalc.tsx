@@ -9,7 +9,7 @@ function ReuseCalc() {
   const [loading, setLoading] = useState(true)
 
   // Base values per water refill
-  const CARBON_FOOTPRINT_PER_REFILL = 4.4 // kg
+  const CARBON_FOOTPRINT_PER_REFILL = 0.5 // kg
   const WATER_CONSERVED_PER_REFILL = 92708 // liters
 
   useEffect(() => {
