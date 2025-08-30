@@ -25,25 +25,25 @@ function AppContent() {
   const [isPlaying, setIsPlaying] = useState(true); // Enable auto-play
   const [progress, setProgress] = useState(0);
 
-  useEffect(() => {
-    if (!isPlaying) return;
+  // useEffect(() => {
+  //   if (!isPlaying) return;
 
-    // Stop auto-navigation when on Reduce page
+  //   // Stop auto-navigation when on Reduce page
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          const nextIndex = (currentIndex + 1) % routes.length;
-          setCurrentIndex(nextIndex);
-          navigate(routes[nextIndex].path);
-          return 0;
-        }
-        return prev + 0.5; // Progress: 200ms * 200 = 20 seconds per page
-      });
-    }, 100); // Update progress every 100ms for smoother animation, 20 second cycles
+  //   const interval = setInterval(() => {
+  //     setProgress((prev) => {
+  //       if (prev >= 100) {
+  //         const nextIndex = (currentIndex + 1) % routes.length;
+  //         setCurrentIndex(nextIndex);
+  //         navigate(routes[nextIndex].path);
+  //         return 0;
+  //       }
+  //       return prev + 0.5; // Progress: 200ms * 200 = 20 seconds per page
+  //     });
+  //   }, 100); // Update progress every 100ms for smoother animation, 20 second cycles
 
-    return () => clearInterval(interval);
-  }, [currentIndex, isPlaying, navigate, location.pathname]);
+  //   return () => clearInterval(interval);
+  // }, [currentIndex, isPlaying, navigate, location.pathname]);
 
   useEffect(() => {
     const currentPath = location.pathname;

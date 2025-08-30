@@ -108,7 +108,7 @@ function DashboardPage() {
       <div className="max-w-[75rem] w-full relative z-10 flex items-center justify-center flex-col ml-[260px]">
         {/* Dell Technologies Logo Area */}
         <div className="flex mb-12 justify-start w-full">
-          <img src="/delllogo.png" alt="Dell Technologies" className="h-24 w-auto object-contain" />
+          <img src="/delllogo.png" alt="Dell Technologies" className="h-24 w-auto object-contain ml-[-155px]" />
         </div>
 
         {loading ? (
