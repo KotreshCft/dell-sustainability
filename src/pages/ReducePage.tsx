@@ -24,7 +24,7 @@ function ReducePage() {
   return (
     <>
       {showInfo && (
-        <div className="fixed inset-0 w-full h-full animate__animated animate__slideInRight">
+        <div className="fixed inset-0 w-full h-full animate__animated animate__slideInRight bg-[#044f52]">
           {!imageError ? (
             <video 
               src="/reduceinfo.mp4" 
