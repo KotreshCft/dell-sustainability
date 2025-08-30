@@ -42,7 +42,7 @@ function ReduceCalc() {
   const carbonAbsorption = BASE_CARBON_KGS_PER_USER * userCount
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__slideInRight">
+    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__fadeIn">
       <video
         autoPlay
         loop

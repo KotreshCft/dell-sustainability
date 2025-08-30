@@ -38,6 +38,7 @@ function DashboardPage() {
   })
   const [loading, setLoading] = useState(true)
   const [visibleSections, setVisibleSections] = useState<boolean[]>([false, false, false, false])
+  const [showGrids, setShowGrids] = useState(false)
 
   // Constants from individual components
   const BASE_TREES_PER_USER = 1
@@ -91,10 +92,17 @@ function DashboardPage() {
     return unsubscribe
   }, [])
 
-  // Animation effect for showing sections one by one
+  // Animation effect for showing sections one by one - wait for page animation to finish
   useEffect(() => {
     if (!loading) {
-      const delays = [500, 800, 1100, 1400] // Staggered delays in milliseconds
+      // Wait 1 second for slideInRight animation to complete, then enable grids and start animations
+      const pageAnimationDelay = 1000
+      
+      setTimeout(() => {
+        setShowGrids(true)
+      }, pageAnimationDelay)
+      
+      const delays = [500, 800, 1100, 1400] // Staggered delays in milliseconds after page animation
       
       delays.forEach((delay, index) => {
         setTimeout(() => {
@@ -103,7 +111,7 @@ function DashboardPage() {
             newVisible[index] = true
             return newVisible
           })
-        }, delay)
+        }, pageAnimationDelay + delay)
       })
     }
   }, [loading])
@@ -115,8 +123,8 @@ function DashboardPage() {
   const getSectionClasses = (index: number) => {
     return `grid grid-cols-12 gap-0 h-40 transition-all duration-700 ease-in-out transform ${
       visibleSections[index] 
-        ? 'opacity-100 translate-y-0 scale-100' 
-        : 'opacity-0 translate-y-8 scale-95'
+        ? 'opacity-100 translate-y-0 scale-100 visible' 
+        : 'opacity-0 translate-y-8 scale-95 invisible'
     }`
   }
 
@@ -144,9 +152,10 @@ function DashboardPage() {
             <div className="text-4xl text-white font-bold">Loading</div>
           </div>
         ) : (
-          <div className="space-y-8 w-full">
-            {/* Reduce Section */}
-            <div className={getSectionClasses(0)}>
+          showGrids && (
+            <div className="space-y-8 w-full">
+              {/* Reduce Section */}
+              <div className={getSectionClasses(0)}>
               <div className="col-span-3 bg-transparent flex items-center justify-center ml-[-152px]">
                 <img src="/reducelogo.png" alt="Reduce" className="h-[100%] max-w-none" />
               </div>
@@ -204,6 +213,7 @@ function DashboardPage() {
               </div>
             </div>
           </div>
+          )
         )}
       </div>
     </div>
