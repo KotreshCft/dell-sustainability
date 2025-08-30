@@ -35,6 +35,7 @@ function DashboardPage() {
     solarLamps: 0,
   })
   const [loading, setLoading] = useState(true)
+  const [visibleSections, setVisibleSections] = useState<boolean[]>([false, false, false, false])
 
   // Constants from individual components
   const BASE_TREES_PER_USER = 1
@@ -88,8 +89,33 @@ function DashboardPage() {
     return unsubscribe
   }, [])
 
+  // Animation effect for showing sections one by one
+  useEffect(() => {
+    if (!loading) {
+      const delays = [500, 800, 1100, 1400] // Staggered delays in milliseconds
+      
+      delays.forEach((delay, index) => {
+        setTimeout(() => {
+          setVisibleSections(prev => {
+            const newVisible = [...prev]
+            newVisible[index] = true
+            return newVisible
+          })
+        }, delay)
+      })
+    }
+  }, [loading])
+
   const formatNumber = (num: number) => {
     return num.toLocaleString()
+  }
+
+  const getSectionClasses = (index: number) => {
+    return `grid grid-cols-12 gap-0 h-40 transition-all duration-700 ease-in-out transform ${
+      visibleSections[index] 
+        ? 'opacity-100 translate-y-0 scale-100' 
+        : 'opacity-0 translate-y-8 scale-95'
+    }`
   }
 
   return (
@@ -118,7 +144,7 @@ function DashboardPage() {
         ) : (
           <div className="space-y-8 w-full">
             {/* Reduce Section */}
-            <div className="grid grid-cols-12 gap-0 h-40">
+            <div className={getSectionClasses(0)}>
               <div className="col-span-3 bg-transparent flex items-center justify-center ml-[-152px]">
                 <img src="/reducelogo.png" alt="Reduce" className="h-[100%] max-w-none" />
               </div>
@@ -132,8 +158,7 @@ function DashboardPage() {
             </div>
 
             {/* Recycle Section */}
-            {/* ♻️ Recycle Section */}
-            <div className="grid grid-cols-12 gap-0 h-40">
+            <div className={getSectionClasses(1)}>
               <div className="col-span-3 bg-transparent flex items-center justify-center ml-[-152px]">
                 <img src="/recyclelogo.png" alt="Recycle" className="h-[100%] max-w-none" />
               </div>
@@ -146,8 +171,8 @@ function DashboardPage() {
               </div>
             </div>
 
-            {/* 💧 Re-Use Section */}
-            <div className="grid grid-cols-12 gap-0 h-40">
+            {/* Re-Use Section */}
+            <div className={getSectionClasses(2)}>
               <div className="col-span-3 bg-transparent flex items-center justify-center ml-[-152px]">
                 <img src="/reuselogo.png" alt="Re-Use" className="h-[100%] max-w-none" />
               </div>
@@ -163,8 +188,8 @@ function DashboardPage() {
               </div>
             </div>
 
-            {/* 🌱 Regenerate Section */}
-            <div className="grid grid-cols-12 gap-0 h-40">
+            {/* Regenerate Section */}
+            <div className={getSectionClasses(3)}>
               <div className="col-span-3 bg-transparent flex items-center justify-center ml-[-152px]">
                 <img src="/regenlogo.png" alt="Regenerate" className="h-[100%] max-w-none" />
               </div>
