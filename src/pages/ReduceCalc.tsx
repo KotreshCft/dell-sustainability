@@ -55,33 +55,33 @@ function ReduceCalc() {
       {/* Dark overlay for better text visibility */}
       <div className="absolute inset-0"></div>
 
-      <div className="flex flex-col items-start justify-start relative z-10 mt-80 ml-80">
+      <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
         {loading ? (
           <div className="py-20 px-16 shadow-2xl w-full max-w-6xl" style={{ backgroundColor: "#40586D" }}>
             <p className="text-4xl text-white font-bold">Loading data...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-8 w-full max-w-[59rem]">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-[57rem]">
             {/* Row 1: User Visits and Trees Planted */}
-            <div className="py-12 px-12 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
+            <div className="px-12 py-8 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
               <div className="text-left flex flex-col justify-start h-full">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-4">{userCount}</p>
-                <p className="text-4xl text-white mb-4">User visits to digital collaterals</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-4">{userCount}</p>
+                <p className="text-[44px] font-light text-white mb-4">User visits to digital collaterals</p>
               </div>
             </div>
 
-            <div className="py-12 px-12 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
+            <div className=" py-8 px-12 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
               <div className="text-left flex flex-col justify-start h-full">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-4">{treesPlanted}</p>
-                <p className="text-4xl text-white mb-4">Trees will be planted as our contribution​</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-4">{treesPlanted}</p>
+                <p className="text-[44px] font-light text-white mb-4">Trees will be planted as our contribution​</p>
               </div>
             </div>
 
             {/* Row 2: Carbon Absorption (spans full width) */}
-            <div className="col-span-2 py-12 px-12 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
+            <div className="col-span-2 py-8 px-10 shadow-2xl" style={{ backgroundColor: "#40586D" }}>
               <div className="text-left">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-8">{carbonAbsorption} kgs</p>
-                <p className="text-4xl text-white">Carbon absorption per year​ due to the plantation​</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-8">{carbonAbsorption} kgs</p>
+                <p className="text-[44px] font-light text-white">Carbon absorption per year​ due to the plantation​</p>
           
               </div>
             </div>

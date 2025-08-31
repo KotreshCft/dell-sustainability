@@ -60,28 +60,28 @@ function RegenerateCalc() {
       {/* Dark overlay for better text visibility */}
       <div className="absolute inset-0"></div>
 
-      <div className="flex flex-col items-start justify-start relative z-10 mt-80 ml-80">
+      <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
         {loading ? (
           <div className="py-20 px-16 shadow-2xl w-full max-w-6xl" style={{ backgroundColor: "#00468B" }}>
             <p className="text-4xl text-white font-bold">Loading data...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-8 w-full max-w-[59rem]">
+          <div className="grid grid-cols-2 gap-4 w-full max-w-[57rem]">
             {/* Row 1: Total Data and Solar Lamps */}
-            <div className="py-12 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
+            <div className="py-8 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
               <div className="text-left flex flex-col justify-start h-full">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-4">{displayTotalCycleData.toLocaleString()}</p>
-                <p className="text-4xl text-white mb-4">Seconds of cycling interactions​</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-4">{displayTotalCycleData.toLocaleString()}</p>
+                <p className="text-[44px] font-light text-white mb-4">Seconds of cycling interactions​</p>
                 {/* <p className="text-sm text-gray-300">
                   1 initiative = 1 solar lamp + 125kg carbon prevented
                 </p> */}
               </div>
             </div>
 
-            <div className="py-12 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
+            <div className="py-8 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
               <div className="text-left flex flex-col justify-start h-full max-w-[400px]">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-4">{solarLamps.toLocaleString()}</p>
-                <p className="text-4xl text-white mb-4">Solar lamps will be contributed that can light a student's future​</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-4">{solarLamps.toLocaleString()}</p>
+                <p className="text-[44px] font-light text-white mb-4">Solar lamps will be contributed that can light a student's future​</p>
                 {/* <p className="text-sm text-gray-300">
                   Based on {totalCycleData} completed initiatives
                 </p> */}
@@ -89,10 +89,10 @@ function RegenerateCalc() {
             </div>
 
             {/* Row 2: Carbon Emission Prevented (spans full width) */}
-            <div className="col-span-2 py-12 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
+            <div className="col-span-2 py-8 px-10 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
               <div className="text-left">
-                <p className="text-6xl font-bold text-white drop-shadow-lg mb-6">{carbonEmissionPrevented.toLocaleString()} kg</p>
-                <p className="text-4xl text-white">Carbon emission prevented​</p>
+                <p className="text-5xl font-bold text-white drop-shadow-lg mb-6">{carbonEmissionPrevented.toLocaleString()} kg</p>
+                <p className="text-[44px] font-light text-white">Carbon emission prevented​</p>
                 {/* <p className="text-sm text-gray-300 mt-4">
                   Calculation: {totalCycleData} solar lamps × {CARBON_EMISSION_PREVENTED_PER_LAMP}kg carbon prevention per lamp
                 </p> */}
