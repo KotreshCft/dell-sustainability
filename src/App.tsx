@@ -65,6 +65,12 @@ function AppContent() {
               }
             }
             
+            // Preload data before navigating to calculation pages
+            const nextRoute = routes[nextIndex];
+            if (nextRoute && nextRoute.path.includes('-calc')) {
+              preloadData();
+            }
+            
             setCurrentIndex(nextIndex);
             navigate(routes[nextIndex].path);
             return 0;
@@ -127,6 +133,13 @@ function App() {
   useEffect(() => {
     // Preload all data when the app starts
     preloadData();
+
+    // Set up periodic data refresh to ensure calculation pages always have fresh data
+    const dataRefreshInterval = setInterval(() => {
+      preloadData();
+    }, 30000); // Refresh every 30 seconds
+
+    return () => clearInterval(dataRefreshInterval);
   }, []);
 
   return (
