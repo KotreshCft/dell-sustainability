@@ -100,7 +100,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen relative bg-[#044f52]" >
+    <div className="min-h-screen relative bg-[#044f52] overflow-hidden" >
 
 
 

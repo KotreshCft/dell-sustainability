@@ -130,7 +130,7 @@ function DashboardPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center p-6 relative animate__animated animate__slideInRight"
+      className="min-h-screen w-full flex items-center justify-center p-6 relative animate__animated animate__slideInRight overflow-hidden"
       style={{
         backgroundImage: "url(/dashboard.png)",
         backgroundSize: "cover",

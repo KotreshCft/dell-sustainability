@@ -3,7 +3,7 @@ import 'animate.css';
 
 function HomePage() {
   return (
-    <div className="min-h-screen w-full relative animate__animated animate__slideInRight bg-[#044f52]">
+    <div className="min-h-screen w-full relative animate__animated animate__slideInRight bg-[#044f52] ">
       <video 
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
