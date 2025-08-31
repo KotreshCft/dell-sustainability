@@ -8,6 +8,7 @@ import ReusePage from './pages/ReusePage';
 import RecyclePage from './pages/RecyclePage';
 import RegeneratePage from './pages/RegeneratePage';
 import DashboardPage from './pages/DashboardPage';
+import ExtraPage from './pages/ExtraPage';
 
 const routes = [
   { path: '/', name: 'Home' },
@@ -81,6 +82,7 @@ function AppContent() {
         <Route path="/recycle" element={<RecyclePage />} />
         <Route path="/regenerate" element={<RegeneratePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/extra" element={<ExtraPage />} />
       </Routes>
     </div>
   );
