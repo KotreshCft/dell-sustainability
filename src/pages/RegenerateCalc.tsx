@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react"
 import { getCycleData, subscribeToDataChanges } from "../services/dataService"
+import { DataLoader } from "../components/DataLoader"
 import 'animate.css';
 
 
 function RegenerateCalc() {
   const [totalCycleData, setTotalCycleData] = useState(0)
-  const [loading, setLoading] = useState(true)
 
   // Constants for calculations
   const CARBON_EMISSION_PREVENTED_PER_LAMP = 125 // kg per solar lamp
@@ -15,13 +15,10 @@ function RegenerateCalc() {
   useEffect(() => {
     async function loadData() {
       try {
-        setLoading(true)
         const cycleData = await getCycleData()
         setTotalCycleData(cycleData)
       } catch (error) {
         console.error("Error loading cycle data:", error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -47,25 +44,21 @@ function RegenerateCalc() {
   const displayCarbonEmissionPrevented = carbonEmissionPrevented * 60
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__fadeIn">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/regenbg.mp4" type="video/mp4" />
-      </video>
-      {/* Dark overlay for better text visibility */}
-      <div className="absolute inset-0"></div>
+    <DataLoader>
+      <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__fadeIn">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/regenbg.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay for better text visibility */}
+        <div className="absolute inset-0"></div>
 
-      <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
-        {loading ? (
-          <div className="py-20 px-16 shadow-2xl w-full max-w-6xl" style={{ backgroundColor: "#00468B" }}>
-            <p className="text-4xl text-white font-bold">Loading data...</p>
-          </div>
-        ) : (
+        <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
           <div className="grid grid-cols-2 gap-4 w-full max-w-[57rem]">
             {/* Row 1: Total Data and Solar Lamps */}
             <div className="py-8 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
@@ -99,9 +92,9 @@ function RegenerateCalc() {
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+    </DataLoader>
   )
 }
 

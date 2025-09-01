@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react"
 import { getWaterRefills, subscribeToDataChanges } from "../services/dataService"
+import { DataLoader } from "../components/DataLoader"
 import 'animate.css';
 
 function ReuseCalc() {
   const [totalWaterRefills, setTotalWaterRefills] = useState(0)
-  const [loading, setLoading] = useState(true)
 
   // Base values per water refill
   const CARBON_FOOTPRINT_PER_REFILL = 0.5 // kg
@@ -15,13 +15,10 @@ function ReuseCalc() {
   useEffect(() => {
     async function loadData() {
       try {
-        setLoading(true)
         const waterRefills = await getWaterRefills()
         setTotalWaterRefills(waterRefills)
       } catch (error) {
         console.error("Error loading water refills data:", error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -47,25 +44,21 @@ function ReuseCalc() {
   }
 
   return (
-    <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__fadeIn">
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/reusebg.mp4" type="video/mp4" />
-      </video>
-      {/* Dark overlay for better text visibility */}
-      <div className="absolute inset-0"></div>
+    <DataLoader>
+      <div className="min-h-screen flex items-start justify-start p-0 relative animate__animated animate__fadeIn">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/reusebg.mp4" type="video/mp4" />
+        </video>
+        {/* Dark overlay for better text visibility */}
+        <div className="absolute inset-0"></div>
 
-      <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
-        {loading ? (
-          <div className="py-20 px-16 shadow-2xl w-full max-w-6xl" style={{ backgroundColor: "#00468B" }}>
-            <p className="text-4xl text-white font-bold">Loading data...</p>
-          </div>
-        ) : (
+        <div className="flex flex-col items-start justify-start relative z-10 mt-[300px] ml-[350px]">
           <div className="grid grid-cols-2 gap-4 w-full max-w-[57rem]">
           {/* Row 1: Water Refills and Carbon Footprint Reduced */}
           <div className="py-8 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
@@ -94,9 +87,9 @@ function ReuseCalc() {
             </div>
           </div>
         </div>
-        )}
+        </div>
       </div>
-    </div>
+    </DataLoader>
   )
 }
 

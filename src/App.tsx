@@ -65,11 +65,7 @@ function AppContent() {
               }
             }
             
-            // Preload data before navigating to calculation pages
-            const nextRoute = routes[nextIndex];
-            if (nextRoute && nextRoute.path.includes('-calc')) {
-              preloadData();
-            }
+            // Data will be loaded by DataLoader component for calc pages
             
             setCurrentIndex(nextIndex);
             navigate(routes[nextIndex].path);
