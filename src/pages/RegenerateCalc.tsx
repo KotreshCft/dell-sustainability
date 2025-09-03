@@ -38,8 +38,8 @@ function RegenerateCalc() {
   const solarLamps = totalCycleData // 1 data = 1 solar lamp
   const carbonEmissionPrevented = totalCycleData * CARBON_EMISSION_PREVENTED_PER_LAMP // total × 125kg
   
-  // Display values multiplied by 60 to show in seconds
-  const displayTotalCycleData = totalCycleData * 60
+  // Display values multiplied by 60 to show in minutes (converted from seconds)
+  const displayTotalCycleData = totalCycleData
   const displaySolarLamps = solarLamps * 60
   const displayCarbonEmissionPrevented = carbonEmissionPrevented * 60
 
@@ -64,7 +64,7 @@ function RegenerateCalc() {
             <div className="py-8 px-12 shadow-2xl" style={{ backgroundColor: "#00468B" }}>
               <div className="text-left flex flex-col justify-start h-full">
                 <p className="text-5xl font-bold text-white drop-shadow-lg mb-4">{displayTotalCycleData.toLocaleString()}</p>
-                <p className="text-[44px] font-light text-white mb-4">Seconds of cycling interactions​</p>
+                <p className="text-[44px] font-light text-white mb-4">Minutes of cycling interactions​</p>
                 {/* <p className="text-sm text-gray-300">
                   1 initiative = 1 solar lamp + 125kg carbon prevented
                 </p> */}

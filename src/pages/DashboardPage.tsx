@@ -192,7 +192,7 @@ function DashboardPage() {
                   <span className="font-bold">{dashboardData.waterRefills} Water refills:</span>
                   <br />
                   <span className="font-normal">
-                    {dashboardData.farmersSupported} Farmers livelihoods empowered and {formatNumber(dashboardData.waterConserved)} liters of water
+                    {dashboardData.farmersSupported} Farmers livelihoods empowered and 1000+ liters of water
                     saved
                   </span>
                 </span>
@@ -206,7 +206,7 @@ function DashboardPage() {
               </div>
               <div className="col-span-9 border-[#0B7C84] border-[5px] flex items-center px-12">
                 <span className="text-white text-3xl max-w-[48rem] leading-snug">
-                  <span className="font-bold">{dashboardData.cycleInitiatives} Seconds of cycling:</span>
+                  <span className="font-bold">{Math.round(dashboardData.cycleInitiatives / 60)} Minutes of cycling:</span>
                   <br />
                   <span className="font-normal">{dashboardData.solarLamps} Solar lamps funded</span>
                 </span>
